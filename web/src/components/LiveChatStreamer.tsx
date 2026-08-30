@@ -21,12 +21,13 @@ import { renderChatMessageWithEmotes, getTwitchUserColor, fetchAndRegisterChanne
 
 interface LiveChatStreamerProps {
   events: ModerationEvent[];
+  categoryBuffers?: Record<string | number, ModerationEvent[]>;
   onEventProcessed?: (event: ModerationEvent) => void;
 }
 
 export type FilterType = 'all' | '1' | '2' | '3' | '4' | '5' | '6' | 'review';
 
-export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) => {
+export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, categoryBuffers }) => {
   const [channelInput, setChannelInput] = useState('');
   const [twitchConnected, setTwitchConnected] = useState(false);
   const [twitchChannel, setTwitchChannel] = useState('');
@@ -126,50 +127,71 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) =>
 
   const seenIdsRef = useRef<Set<string>>(new Set());
 
-  // Ingest incoming events into their respective category bucket without losing rare levels
+  // Ingest incoming events and categoryBuffers into persistent category buckets (Capped at 100 per level)
   useEffect(() => {
-    if (!events || events.length === 0) return;
-
     let hasNew = false;
-    const newBuckets: Record<string, ModerationEvent[]> = {
-      '1': [...(categoryBuckets['1'] || [])],
-      '2': [...(categoryBuckets['2'] || [])],
-      '3': [...(categoryBuckets['3'] || [])],
-      '4': [...(categoryBuckets['4'] || [])],
-      '5': [...(categoryBuckets['5'] || [])],
-      '6': [...(categoryBuckets['6'] || [])],
-      'review': [...(categoryBuckets['review'] || [])],
-    };
 
-    // Iterate through events (from oldest to newest to preserve chronological order)
-    for (let i = events.length - 1; i >= 0; i--) {
-      const e = events[i];
-      if (!seenIdsRef.current.has(e.id)) {
-        seenIdsRef.current.add(e.id);
-        hasNew = true;
+    setCategoryBuckets((prev) => {
+      const next: Record<string, ModerationEvent[]> = {
+        '1': [...(prev['1'] || [])],
+        '2': [...(prev['2'] || [])],
+        '3': [...(prev['3'] || [])],
+        '4': [...(prev['4'] || [])],
+        '5': [...(prev['5'] || [])],
+        '6': [...(prev['6'] || [])],
+        'review': [...(prev['review'] || [])],
+      };
 
-        const levelKey = String(getEffectiveLevel(e));
-        if (newBuckets[levelKey]) {
-          newBuckets[levelKey] = [...newBuckets[levelKey], e];
-          // Keep only newest 100 messages for this specific level
-          if (newBuckets[levelKey].length > 100) {
-            newBuckets[levelKey] = newBuckets[levelKey].slice(-100);
+      // 1. Sync from server categoryBuffers prop (Authoritative persistence from backend)
+      if (categoryBuffers) {
+        Object.entries(categoryBuffers).forEach(([k, list]) => {
+          const key = String(k);
+          if (next[key] && Array.isArray(list)) {
+            // Traverse from oldest to newest (list is ordered newest-first)
+            for (let i = list.length - 1; i >= 0; i--) {
+              const item = list[i];
+              if (item && item.id && !seenIdsRef.current.has(item.id)) {
+                seenIdsRef.current.add(item.id);
+                next[key].push(item);
+                hasNew = true;
+              }
+            }
+            if (next[key].length > 100) {
+              next[key] = next[key].slice(-100);
+            }
           }
-        }
+        });
+      }
 
-        if (e.flagged_for_review) {
-          newBuckets['review'] = [...newBuckets['review'], e];
-          if (newBuckets['review'].length > 100) {
-            newBuckets['review'] = newBuckets['review'].slice(-100);
+      // 2. Ingest from live events stream
+      if (events && events.length > 0) {
+        for (let i = events.length - 1; i >= 0; i--) {
+          const e = events[i];
+          if (e && e.id && !seenIdsRef.current.has(e.id)) {
+            seenIdsRef.current.add(e.id);
+            hasNew = true;
+
+            const levelKey = String(getEffectiveLevel(e));
+            if (next[levelKey]) {
+              next[levelKey].push(e);
+              if (next[levelKey].length > 100) {
+                next[levelKey] = next[levelKey].slice(-100);
+              }
+            }
+
+            if (e.flagged_for_review) {
+              next['review'].push(e);
+              if (next['review'].length > 100) {
+                next['review'] = next['review'].slice(-100);
+              }
+            }
           }
         }
       }
-    }
 
-    if (hasNew) {
-      setCategoryBuckets(newBuckets);
-    }
-  }, [events]);
+      return hasNew ? next : prev;
+    });
+  }, [events, categoryBuffers]);
 
   // Compute 6-Level Live Counts directly from the 100-message retained category buckets
   const countL1 = categoryBuckets['1']?.length || 0;

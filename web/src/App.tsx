@@ -103,6 +103,7 @@ export const App: React.FC = () => {
           <div className={activeTab === 'LiveChat' ? 'block' : 'hidden'}>
             <LiveChatStreamer
               events={filteredEvents}
+              categoryBuffers={telemetry.category_buffers}
               onEventProcessed={handleEventProcessed}
             />
           </div>

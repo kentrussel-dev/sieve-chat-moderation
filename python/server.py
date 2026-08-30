@@ -330,12 +330,12 @@ telemetry_state = {
     "rate_escalated_per_sec": 0.0,
     "recent_events": [],
     "category_buffers": {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-        6: [],
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
         "review": []
     },
     "confidence_distribution": [
@@ -518,12 +518,12 @@ def get_telemetry():
 def clear_telemetry():
     telemetry_state["recent_events"] = []
     telemetry_state["category_buffers"] = {
-        1: [],
-        2: [],
-        3: [],
-        4: [],
-        5: [],
-        6: [],
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
         "review": []
     }
     telemetry_state["items_raw_total"] = 0
@@ -804,12 +804,20 @@ def _update_telemetry(record: Dict, detected_emotes: List[EmoteMatch]):
         telemetry_state["confidence_distribution"][5]["count"] += 1
 
     # Add to dedicated category buffer (Retain 100 messages per level)
-    cat_bufs = telemetry_state.setdefault("category_buffers", {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], "review": []})
-    level = record.get("toxicity_level", 1)
-    if level in cat_bufs:
-        cat_bufs[level].insert(0, record)
-        if len(cat_bufs[level]) > 100:
-            cat_bufs[level].pop()
+    cat_bufs = telemetry_state.setdefault("category_buffers", {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "review": []
+    })
+    level_str = str(record.get("toxicity_level", 1))
+    if level_str in cat_bufs:
+        cat_bufs[level_str].insert(0, record)
+        if len(cat_bufs[level_str]) > 100:
+            cat_bufs[level_str].pop()
 
     if record.get("flagged_for_review", False):
         cat_bufs["review"].insert(0, record)
