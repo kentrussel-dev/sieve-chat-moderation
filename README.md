@@ -15,6 +15,12 @@ Empirical evaluation on a held-out test corpus of 1,500 samples demonstrates tha
 2. Reduces median latency (**P50**) from **219.98 ms** to **0.81 ms** (a **99.6% reduction**).
 3. Reduces projected operational cost from **$15.50** to **$2.22 per million items** (an **85.7% cost reduction**) by escalating only **11.5%** of traffic.
 
+<p align="center">
+  <img width="100%" alt="Sieve Live Stream Studio" src="docs/images/live_stream_studio.png" />
+  <br>
+  <em>Figure 1: Sieve Live Moderation Studio — Synchronized Twitch IRC stream, real-time 6-level toxicity scoring ($p$), sub-millisecond local inference, and automated 7TV emote resolution.</em>
+</p>
+
 ---
 
 ## 1. Problem Formulation and Operational Trilemma
@@ -408,75 +414,130 @@ docker compose down -v
 
 ## 9. Operator Manual & Feature Guide
 
-This section outlines how to use and operate all capabilities of the Sieve platform.
+This section provides a complete operator walkthrough for monitoring, testing, and moderating live streaming communities using Sieve.
 
 ### 9.1 Live Stream Studio (`/`)
 
+The **Live Stream Studio** is the primary operator command center for monitoring high-velocity live streams with synchronous multi-tiered moderation.
+
 <p align="center">
-  <img width="950" alt="Figure 5: Live Stream Ingestion & 7TV Emote Sequence" src="https://github.com/user-attachments/assets/1d555cfa-7783-4ff3-8f64-07ace24be37d" />
+  <img width="1000" alt="Live Stream Studio Interface" src="docs/images/live_stream_studio.png" />
   <br>
-  <em>Figure 5: Live Twitch IRC WebSocket & 7TV Custom Emote Ingestion Sequence</em>
+  <em>Figure 6: Live Stream Studio — Stream playback, connection controls, and real-time 6-level moderated chat feed.</em>
 </p>
 
-- **Connecting to Any Twitch Channel**:
-  - Enter any active Twitch username into the top connection bar (e.g. `caedrel`, `tarik`, `shroud`, `esl_dota2`) and click **Connect Live**.
-  - Sieve establishes an IRC WebSocket connection to Twitch chat and embeds the live video player.
-  - Channel-specific 7TV, BTTV, and FrankerFaceZ custom emotes are automatically fetched and registered for real-time rendering.
-  - Click **Disconnect** at any time to unhook from the channel.
+#### How to Operate:
+1. **Connecting to Any Live Twitch Channel**:
+   - Type any active Twitch username (e.g. `jynxzi`, `caedrel`, `tarik`, `shroud`, `esl_dota2`) into the top channel bar and click **Connect Live**.
+   - Sieve automatically establishes an IRC WebSocket connection to Twitch chat, embeds the live video feed, and registers channel-specific 7TV, BetterTTV, and FrankerFaceZ custom emotes for real-time rendering.
+   - Click **Disconnect** at any time to cleanly unhook from the channel.
 
-- **Streaming CONDA Match Data**:
-  - Click **CONDA Game Replay** to stream real multi-player in-game match communications from the CONDA dataset at a calibrated rate (default: 20 msgs/s).
-  - This allows evaluating the dual-mesh pipeline against aggressive gaming slang and competitive banter in real-time.
+2. **Reading Toxicity Scores ($p$) & Resolution Tiers**:
+   - Every incoming message card displays its calibrated toxicity probability ($p \in [0.00, 1.00]$), exact timestamp, username color, and resolution engine:
+     - **Mesh 1 Local (<1.0ms)**: Fast-path local classifier handling clear benign chatter ($p \le 0.35$) and blatant toxicity ($p \ge 0.70$).
+     - **Mesh 2 LLM (~120–220ms)**: Contextual LLM escalation resolving ambiguous sarcasm, passive-aggressive hostility, and false-alarm profanity.
 
-- **Streaming Sensai Benchmark Data**:
-  - Click **Sensai Live Replay** to stream pre-annotated multi-category benchmark logs (15 msgs/s).
+<p align="center">
+  <img width="380" alt="6-Level Moderated Chat Feed" src="docs/images/live_chat_moderation_feed.png" />
+  <br>
+  <em>Figure 7: 6-Level Chat Feed Close-Up — Calibrated severity chips, review boundary flags, and emote tokens.</em>
+</p>
 
-- **6-Level Dropdown Filtering**:
-  - Use the custom dark popover menu to filter the stream chat by specific severity tier:
-    - `All Messages`: Shows the complete uncurated live feed.
-    - `• L1 Clean`: Benign chatter ($p \le 0.15$).
-    - `• L2 Slang`: In-game slang and harmless banter ($0.15 < p \le 0.35$).
-    - `• L3 Sarcasm`: Contextual sarcasm and ironic praise ($0.35 < p \le 0.55$).
-    - `• L4 Hostile`: Subtle, passive-aggressive hostility ($0.55 < p \le 0.70$).
-    - `• L5 Toxic`: Direct harassment and toxic flaming ($0.70 < p \le 0.88$).
-    - `• L6 Severe`: Hate speech, slurs, and severe threats ($p > 0.88$).
-    - `• Review Queue`: Borderline messages flagged for human moderator audit.
-  - Filtering is strictly memoized with instantaneous zero-leakage clearing when a tier has zero detected messages.
+3. **100-Message Retained Filter Dropdown**:
+   - Use the custom popover dropdown to isolate specific severity tiers without message starvation:
+     - `All Messages`: Shows the complete live uncurated stream.
+     - `• L1 Clean`: Verified benign chat ($p \le 0.15$).
+     - `• L2 Slang`: In-game jargon and harmless competitive banter ($0.15 < p \le 0.35$).
+     - `• L3 Sarcasm`: Contextual sarcasm and ironic praise ($0.35 < p \le 0.55$).
+     - `• L4 Hostile`: Subtle, passive-aggressive hostility ($0.55 < p \le 0.70$).
+     - `• L5 Toxic`: Direct harassment and toxic flaming ($0.70 < p \le 0.88$).
+     - `• L6 Severe`: Hate speech, extreme slurs, and credible threats ($p > 0.88$).
+     - `• Review Queue`: Borderline messages near the Level 2/3 boundary flagged for human audit.
+   - *Zero-Starvation Guarantee*: Each category maintains a persistent 100-message buffer so rare violations never get pushed out by high clean chat velocity.
 
-- **Visual Severity Highlights**:
-  - Chat cards dynamically reflect severity tier with subtle background tints and left-border color accents (Orange for Hostile, Rose for Toxic, Purple for Severe).
+4. **Visual Severity Highlighting & Redaction**:
+   - Violations are visually highlighted: **Orange** for Level 4 Hostility, **Rose** for Level 5 Toxicity, and **Purple** for Level 6 Severe.
+   - Toggle **Redact** to automatically blur/mask toxic messages with a click-to-reveal toggle (`[Message hidden: Toxicity detected - Show]`).
 
-- **Sorting & Redaction**:
-  - Sort chat in real-time by: `Live Feed`, `Highest Toxicity (p=1→0)`, `Cleanest (p=0→1)`, or `Slowest Latency`.
-  - Toggle **Redact** to blur/mask toxic messages with a click-to-reveal toggle (`[Message hidden: Toxicity detected - Show]`).
+5. **Streaming Offline Match & Benchmark Datasets**:
+   - **CONDA Game Replay**: Click **CONDA Game Replay** to stream multi-player in-game match communications from the CONDA Dota 2 dataset (20 msgs/s) to evaluate aggressive gaming slang and intent classification in real-time.
+   - **Sensai Live Replay**: Click **Sensai Live Replay** to stream curated esports chat benchmark logs (15 msgs/s).
+   - **Clear**: Resets the chat stream and telemetry counters.
 
-### 9.2 Real-Time Metrics & Pipeline Observability (`/metrics`)
-- **System Latency Percentiles**:
-  - Real-time gauge cards for $P_{50}, P_{90}, P_{95}$, and $P_{99}$ latency across all processed traffic.
-- **Microservice Mesh Topology**:
-  - Live health statuses, error rates, and throughput for Tier 0 (Ingestion), Tier 1 (Fast-Path Local), Tier 2 (LLM Escalation), and Kafka KRaft.
-- **Kafka Topic Partition Depths**:
-  - Live message counters and partition distribution for `content.raw`, `content.escalated`, `content.passed`, and `content.flagged`.
-- **6-Level Severity Distribution**:
-  - Live percentage and volume breakdown across all 6 tiers.
+---
 
-### 9.3 Confidence Distribution & Calibration Band (`/activity`)
-- **Confidence Distribution Histogram**:
-  - Interactive histogram displaying the distribution of message scores across the 6 severity levels.
-  - The dynamic Amber highlight visually marks the active $[\tau_{\text{low}}, \tau_{\text{high}}]$ LLM escalation window.
-- **Interactive Threshold Sliders**:
-  - Adjust $\tau_{\text{low}}$ (lower bound) and $\tau_{\text{high}}$ (upper bound) in real-time to observe immediate impacts on the escalation percentage and system cost.
+### 9.2 Pipeline Activity Dashboard (`/activity`)
 
-### 9.4 Routing Lab & Sandbox (`/lab`)
-- **Interactive Message Tester**:
-  - Test arbitrary sentences or choose from pre-calibrated 6-level test chips (`L1 Clean`, `L2 Gaming Slang`, `L3 Sarcasm`, `L4 Subtle Hostility`, `L5 Toxic Flaming`, `L6 Severe Slur`).
-  - View real-time routing outcome, resolution tier (`Mesh 1 Local` vs `Mesh 2 LLM`), probability score $p$, latency, and the LLM's contextual reasoning explanation.
+The **Pipeline Activity** view provides real-time visibility into server workload distribution between localized classification and LLM reasoning.
+
+<p align="center">
+  <img width="1000" alt="Pipeline Activity Dashboard" src="docs/images/pipeline_activity.png" />
+  <br>
+  <em>Figure 8: Pipeline Activity — Workload distribution (Local Cleared vs LLM Escalated), P50 latency gauge, and streaming event table.</em>
+</p>
+
+#### How to Operate:
+- **Server Workload Gauges**:
+  - Inspect the percentage of traffic resolved locally by **Mesh 1 (Local)** (typically 65–88%) versus escalated to **Mesh 2 (LLM)**.
+  - Monitor real-time **P50 Latency** (typically $<1.0\text{ ms}$).
+- **Streaming Pipeline Feed**:
+  - Review event IDs, message snippets, severity scores, assigned tiers, and per-message processing latencies in a tabular audit feed.
+
+---
+
+### 9.3 Real-Time System Metrics & Latency Observability (`/metrics`)
+
+The **System Metrics** dashboard monitors latency percentiles, calibrated category distributions, and distributed Kafka infrastructure health.
+
+<p align="center">
+  <img width="1000" alt="Real-Time System Metrics & Observability" src="docs/images/system_metrics.png" />
+  <br>
+  <em>Figure 9: System Metrics — Percentile latency gauges (P50, P90, P95, P99), calibrated distribution bars, and Kafka topology.</em>
+</p>
+
+#### How to Operate:
+- **Latency Percentile Gauges**:
+  - Track **P50**, **P90**, **P95**, and **P99** latency in real-time. P50 reflects sub-millisecond local throughput, while P95/P99 reflect LLM network roundtrips.
+- **Calibrated Severity Distribution**:
+  - Live horizontal distribution bars showing the percentage and volume breakdown across all 6 classification levels.
+- **Kafka KRaft Topic Depths & Microservice Topology**:
+  - Inspect active partition counts, throughput rates, and queue health for `content.raw`, `content.escalated`, `content.passed`, and `content.flagged`.
+
+---
+
+### 9.4 Routing Lab & Calibration Sandbox (`/lab`)
+
+The **Routing Lab** is an interactive testing and threshold tuning environment for simulating edge-case messages and adjusting decision boundaries in real-time.
+
+<p align="center">
+  <img width="1000" alt="Routing Lab & Calibration Sandbox" src="docs/images/routing_lab.png" />
+  <br>
+  <em>Figure 10: Routing Lab — Confidence distribution histogram, interactive threshold sliders, and payload tester sandbox.</em>
+</p>
+
+#### How to Operate:
+1. **Interactive Message Tester**:
+   - Type arbitrary custom sentences or click pre-calibrated test chips:
+     - `L1: Clean`: *"Good game everyone, great teamwork!"*
+     - `L2: Gaming Slang`: *"los sold that round so hard KEKW"*
+     - `L3: Sarcasm`: *"Oh brilliant idea walking into 5 enemies alone, you are a genius"*
+     - `L4: Subtle Hostility`: *"People from your background shouldn't be allowed to play ranked"*
+     - `L5: Toxic Flaming`: *"You are completely useless, uninstall the game"*
+     - `L6: Severe Slur`: Slurs and explicit policy violations.
+   - Click **Test** to view real-time routing outcome, probability score $p$, resolution mesh, latency, and the LLM's natural-language reasoning trace.
+
+2. **Interactive Threshold Sliders**:
+   - Adjust $\tau_{\text{low}}$ (Lower Ambiguity Boundary) and $\tau_{\text{high}}$ (Upper Ambiguity Boundary) sliders dynamically.
+   - The histogram highlight updates instantly, showing the exact percentage of traffic that would be escalated to Tier 2 under the new threshold settings.
+
+3. **Batch Traffic Injection**:
+   - Click **+50 Mixed**, **+50 Sarcasm**, or **+50 Toxic** to inject synthetic traffic bursts into the pipeline and observe system load buffering.
+
+---
 
 ### 9.5 Thesis Benchmark Panel (`/thesis`)
-- **Tri-Configuration Comparative Evaluation**:
-  - View side-by-side accuracy, precision, recall, F1, latency, and cost across `Tier 1 Only`, `LLM Only Baseline`, and `Sieve Tiered Pipeline`.
-- **Category Performance Table**:
-  - Detailed breakdown across all 6 linguistic categories.
+
+Provides full academic tri-configuration evaluation results comparing `Tier 1 Only`, `LLM Only Baseline`, and `Sieve Tiered Pipeline` across accuracy, precision, recall, F1, latency, and cost per million items.
 
 ---
 
