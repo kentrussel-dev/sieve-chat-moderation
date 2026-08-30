@@ -329,6 +329,15 @@ telemetry_state = {
     "rate_flagged_per_sec": 0.0,
     "rate_escalated_per_sec": 0.0,
     "recent_events": [],
+    "category_buffers": {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        "review": []
+    },
     "confidence_distribution": [
         {"bucket": "0.00-0.15", "count": 0, "tier": "passed", "level": 1, "label": "Clean"},
         {"bucket": "0.16-0.35", "count": 0, "tier": "passed", "level": 2, "label": "Gaming Slang (False Alarm)"},
@@ -508,6 +517,15 @@ def get_telemetry():
 @app.post("/api/telemetry/clear")
 def clear_telemetry():
     telemetry_state["recent_events"] = []
+    telemetry_state["category_buffers"] = {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        "review": []
+    }
     telemetry_state["items_raw_total"] = 0
     telemetry_state["items_passed_total"] = 0
     telemetry_state["items_flagged_total"] = 0
@@ -785,8 +803,22 @@ def _update_telemetry(record: Dict, detected_emotes: List[EmoteMatch]):
     else:
         telemetry_state["confidence_distribution"][5]["count"] += 1
 
+    # Add to dedicated category buffer (Retain 100 messages per level)
+    cat_bufs = telemetry_state.setdefault("category_buffers", {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], "review": []})
+    level = record.get("toxicity_level", 1)
+    if level in cat_bufs:
+        cat_bufs[level].insert(0, record)
+        if len(cat_bufs[level]) > 100:
+            cat_bufs[level].pop()
+
+    if record.get("flagged_for_review", False):
+        cat_bufs["review"].insert(0, record)
+        if len(cat_bufs["review"]) > 100:
+            cat_bufs["review"].pop()
+
+    # Add to global stream buffer
     telemetry_state["recent_events"].insert(0, record)
-    if len(telemetry_state["recent_events"]) > 500:
+    if len(telemetry_state["recent_events"]) > 1000:
         telemetry_state["recent_events"].pop()
 
 

@@ -113,23 +113,90 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) =>
     return 6;
   };
 
-  // Compute 6-Level Live Counts (Strictly Synchronized)
-  const countL1 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 1).length, [events]);
-  const countL2 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 2).length, [events]);
-  const countL3 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 3).length, [events]);
-  const countL4 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 4).length, [events]);
-  const countL5 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 5).length, [events]);
-  const countL6 = useMemo(() => events.filter((e) => getEffectiveLevel(e) === 6).length, [events]);
-  const countReview = useMemo(() => events.filter((e) => Boolean(e.flagged_for_review)).length, [events]);
+  // Persistent category-specific buffers: retains up to 100 messages for EACH filter category
+  const [categoryBuckets, setCategoryBuckets] = useState<Record<string, ModerationEvent[]>>({
+    '1': [],
+    '2': [],
+    '3': [],
+    '4': [],
+    '5': [],
+    '6': [],
+    'review': [],
+  });
 
-  // Chronological message calculation & Strict Filtering
+  const seenIdsRef = useRef<Set<string>>(new Set());
+
+  // Ingest incoming events into their respective category bucket without losing rare levels
+  useEffect(() => {
+    if (!events || events.length === 0) return;
+
+    let hasNew = false;
+    const newBuckets: Record<string, ModerationEvent[]> = {
+      '1': [...(categoryBuckets['1'] || [])],
+      '2': [...(categoryBuckets['2'] || [])],
+      '3': [...(categoryBuckets['3'] || [])],
+      '4': [...(categoryBuckets['4'] || [])],
+      '5': [...(categoryBuckets['5'] || [])],
+      '6': [...(categoryBuckets['6'] || [])],
+      'review': [...(categoryBuckets['review'] || [])],
+    };
+
+    // Iterate through events (from oldest to newest to preserve chronological order)
+    for (let i = events.length - 1; i >= 0; i--) {
+      const e = events[i];
+      if (!seenIdsRef.current.has(e.id)) {
+        seenIdsRef.current.add(e.id);
+        hasNew = true;
+
+        const levelKey = String(getEffectiveLevel(e));
+        if (newBuckets[levelKey]) {
+          newBuckets[levelKey] = [...newBuckets[levelKey], e];
+          // Keep only newest 100 messages for this specific level
+          if (newBuckets[levelKey].length > 100) {
+            newBuckets[levelKey] = newBuckets[levelKey].slice(-100);
+          }
+        }
+
+        if (e.flagged_for_review) {
+          newBuckets['review'] = [...newBuckets['review'], e];
+          if (newBuckets['review'].length > 100) {
+            newBuckets['review'] = newBuckets['review'].slice(-100);
+          }
+        }
+      }
+    }
+
+    if (hasNew) {
+      setCategoryBuckets(newBuckets);
+    }
+  }, [events]);
+
+  // Compute 6-Level Live Counts directly from the 100-message retained category buckets
+  const countL1 = categoryBuckets['1']?.length || 0;
+  const countL2 = categoryBuckets['2']?.length || 0;
+  const countL3 = categoryBuckets['3']?.length || 0;
+  const countL4 = categoryBuckets['4']?.length || 0;
+  const countL5 = categoryBuckets['5']?.length || 0;
+  const countL6 = categoryBuckets['6']?.length || 0;
+  const countReview = categoryBuckets['review']?.length || 0;
+
+  // Chronological message calculation & Category-Retained Filtering
   const displayedMessages = useMemo(() => {
-    const allChronological = [...events].reverse();
-    let filtered = allChronological.filter((e) => {
-      if (selectedLevelFilter === 'all') return true;
-      if (selectedLevelFilter === 'review') return Boolean(e.flagged_for_review);
-      return String(getEffectiveLevel(e)) === String(selectedLevelFilter);
-    });
+    let sourceList: ModerationEvent[] = [];
+
+    if (selectedLevelFilter === 'all') {
+      // In 'All Messages' view, show full live stream (newest at bottom)
+      sourceList = [...events].reverse();
+    } else if (selectedLevelFilter === 'review') {
+      // In 'Review Queue' view, show all retained review messages (up to 100)
+      sourceList = [...(categoryBuckets['review'] || [])].reverse();
+    } else {
+      // In specific level view (L1..L6), show all retained messages for this level (up to 100)
+      const levelKey = String(selectedLevelFilter);
+      sourceList = [...(categoryBuckets[levelKey] || [])].reverse();
+    }
+
+    let filtered = [...sourceList];
 
     if (sortBy === 'score_desc') {
       filtered.sort((a, b) => (b.toxicity_score ?? b.tier1_score) - (a.toxicity_score ?? a.tier1_score));
@@ -140,7 +207,7 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) =>
     }
 
     return isHistoryExtended ? filtered : filtered.slice(-100);
-  }, [events, selectedLevelFilter, sortBy, isHistoryExtended]);
+  }, [events, categoryBuckets, selectedLevelFilter, sortBy, isHistoryExtended]);
 
   // Handle incoming messages & auto-scroll (only in live mode)
   useEffect(() => {
@@ -231,6 +298,16 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) =>
           body: JSON.stringify({ channel: channelToUse }),
         });
         if (resp.ok) {
+          seenIdsRef.current.clear();
+          setCategoryBuckets({
+            '1': [],
+            '2': [],
+            '3': [],
+            '4': [],
+            '5': [],
+            '6': [],
+            'review': [],
+          });
           setTwitchConnected(true);
           setTwitchChannel(channelToUse);
           setChannelInput(channelToUse);
@@ -285,8 +362,17 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events }) =>
 
   const handleClearChat = async () => {
     try {
+      seenIdsRef.current.clear();
+      setCategoryBuckets({
+        '1': [],
+        '2': [],
+        '3': [],
+        '4': [],
+        '5': [],
+        '6': [],
+        'review': [],
+      });
       await fetch('/api/telemetry/clear', { method: 'POST' });
-      window.location.reload();
     } catch (err) {}
   };
 

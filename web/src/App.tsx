@@ -69,7 +69,7 @@ export const App: React.FC = () => {
   const handleEventProcessed = (newEvent: ModerationEvent) => {
     setTelemetry((prev) => ({
       ...prev,
-      recent_events: [newEvent, ...prev.recent_events.slice(0, 99)],
+      recent_events: [newEvent, ...prev.recent_events.slice(0, 999)],
       items_raw_total: prev.items_raw_total + 1,
       items_passed_total: newEvent.status === 'PASSED' ? prev.items_passed_total + 1 : prev.items_passed_total,
       items_flagged_total: newEvent.status === 'FLAGGED' ? prev.items_flagged_total + 1 : prev.items_flagged_total,

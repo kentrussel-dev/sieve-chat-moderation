@@ -59,6 +59,7 @@ export interface TelemetryState {
   rate_flagged_per_sec: number;
   rate_escalated_per_sec: number;
   recent_events: ModerationEvent[];
+  category_buffers?: Record<string | number, ModerationEvent[]>;
   confidence_distribution: ConfidenceBucket[];
 }
 
