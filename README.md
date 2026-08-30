@@ -13,23 +13,6 @@ Empirical evaluation on a held-out test corpus of 1,500 samples demonstrates tha
 
 ---
 
-Diagram 1: End-to-End System Architecture & Streaming Lifecycle
-<img width="1290" height="912" alt="image" src="https://github.com/user-attachments/assets/857a719d-169a-47ff-8ae1-545281e214fd" />
-
-Diagram 2: Diagram 2: Two-Tier Decision Boundary & Threshold Calibration
-<img width="414" height="903" alt="image" src="https://github.com/user-attachments/assets/1be7cd24-8c63-4f7f-a535-5e3d376a1017" />
-
-Diagram 3: 6-Level Moderation Scale & Action Routing Matrix
-<img width="948" height="682" alt="image" src="https://github.com/user-attachments/assets/a442cfaa-9e8a-492a-ae0b-885583284f6f" />
-
-Diagram 4: Microservices Topology & Kafka KRaft Topic Interconnect
-<img width="1701" height="492" alt="image" src="https://github.com/user-attachments/assets/9b0e650e-3151-4309-8baf-bc447d7939c5" />
-
-Diagram 5: Live Stream Ingestion & 7TV Emote Sequence
-<img width="1203" height="707" alt="image" src="https://github.com/user-attachments/assets/1d555cfa-7783-4ff3-8f64-07ace24be37d" />
-
-
-
 ## 1. Problem Formulation and Operational Trilemma
 
 ### 1.1 The Production Moderation Trilemma
@@ -55,6 +38,12 @@ Traditional single-tier approaches fail to satisfy all three dimensions:
 
 Sieve is implemented as an event-driven streaming pipeline orchestrated across Apache Kafka (KRaft mode), Go microservices, a Python FastAPI inference engine, and a React real-time stream studio.
 
+<p align="center">
+  <img width="1000" alt="Figure 1: End-to-End System Architecture & Streaming Lifecycle" src="https://github.com/user-attachments/assets/857a719d-169a-47ff-8ae1-545281e214fd" />
+  <br>
+  <em>Figure 1: Sieve End-to-End Event-Driven Stream Architecture & Data Flow</em>
+</p>
+
 ### 2.1 Message Lifecycle & Stage Progression
 
 1. **Ingestion Layer (Tier 0)**:
@@ -78,7 +67,13 @@ Sieve is implemented as an event-driven streaming pipeline orchestrated across A
 5. **Observability & Live Studio**:
    - The FastAPI backend aggregates real-time metrics, queue depths, latency histograms, and filtered message streams, serving the React dashboard via WebSockets.
 
-### 2.1 Component Specifications
+### 2.2 Component Specifications & Kafka Microservices Topology
+
+<p align="center">
+  <img width="1000" alt="Figure 2: Microservices Topology & Kafka KRaft Topic Interconnect" src="https://github.com/user-attachments/assets/9b0e650e-3151-4309-8baf-bc447d7939c5" />
+  <br>
+  <em>Figure 2: Microservices Topology & Partitioned Kafka KRaft Topic Interconnect</em>
+</p>
 
 - **Tier 0 (Producer)**: High-throughput Go service emitting `ContentEvent` envelopes to Kafka topic `content.raw`. Supports steady-state generation and burst injection to simulate traffic spikes.
 - **Tier 1 (Routing Consumer)**: Go consumer with pooled HTTP connections to the localized inference engine. Evaluates predicted toxicity probability $p = P(\text{toxic} \mid x)$ against threshold bounds $[\tau_{\text{low}}, \tau_{\text{high}}]$.
@@ -90,6 +85,12 @@ Sieve is implemented as an event-driven streaming pipeline orchestrated across A
 ## 3. Mathematical Formulation & Threshold Calibration
 
 ### 3.1 Decision Boundary Model
+
+<p align="center">
+  <img width="480" alt="Figure 3: Two-Tier Decision Boundary & Threshold Calibration" src="https://github.com/user-attachments/assets/1be7cd24-8c63-4f7f-a535-5e3d376a1017" />
+  <br>
+  <em>Figure 3: Two-Tier Confidence Decision Boundary & Threshold Calibration Flowchart</em>
+</p>
 
 Let $x \in \mathcal{X}$ denote the input text, and let $f_{\theta}(x) \in [0, 1]$ be the calibrated probability of toxicity output by the Tier 1 model:
 
@@ -133,11 +134,32 @@ The calibrated operating point $\tau_{\text{low}} = 0.20, \tau_{\text{high}} = 0
 
 ---
 
-## 4. Empirical Evaluation Results
+## 4. The 6-Level Moderation Scale & Multi-Mesh Resolution
+
+Sieve categorizes all content events into a standardized 6-level severity spectrum, providing fine-grained moderation actions and precision policy enforcement:
+
+<p align="center">
+  <img width="900" alt="Figure 4: 6-Level Moderation Scale & Action Routing Matrix" src="https://github.com/user-attachments/assets/a442cfaa-9e8a-492a-ae0b-885583284f6f" />
+  <br>
+  <em>Figure 4: 6-Level Moderation Scale & Multi-Mesh Resolution Hierarchy</em>
+</p>
+
+| Level | Identifier | Score Range ($p$) | Primary Mesh | Description & Example | Action Taken |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **L1** | **Clean** | $p \le 0.15$ | Mesh 1 Local | Standard benign conversation, greetings, factual statements. (*"gg wp good game everyone"*) | `PASSED` (Immediate delivery) |
+| **L2** | **Gaming Slang** | $0.15 < p \le 0.35$ | Mesh 1 Local | Gaming jargon, banter, pseudo-aggressive competitive terms. (*"los sold that round so hard"*) | `PASSED` (Immediate delivery) |
+| **L3** | **Sarcasm** | $0.35 < p \le 0.55$ | Mesh 2 LLM | Sarcastic praise, ironic negativity, contextual subversion. (*"Oh wow, you are truly a genius for walking into that trap"*) | Resolved by LLM Context |
+| **L4** | **Hostile** | $0.55 < p \le 0.70$ | Mesh 2 LLM | Borderline insults, passive-aggressive remarks, veiled hostility. (*"People like you shouldn't be allowed to play ranked"*) | Resolved by LLM Context |
+| **L5** | **Toxic** | $0.70 < p \le 0.88$ | Mesh 1 Local | Direct profanity, overt harassment, hostile flaming. (*"You are completely useless, uninstall the game"*) | `FLAGGED` (Hidden / Redacted) |
+| **L6** | **Severe** | $p > 0.88$ | Mesh 1 Local | Extreme violations, hate speech, severe slurs, credible threats. | `FLAGGED` (Immediate Quarantine) |
+
+---
+
+## 5. Empirical Evaluation Results
 
 The evaluation was executed on a held-out test partition ($N = 1,500$) comprising 55% in-distribution clean text, 30% blatant toxicity, and 15% out-of-distribution nuanced edge cases (sarcasm, colloquial false alarms, and veiled hostility).
 
-### 4.1 Tri-Configuration Performance Comparison
+### 5.1 Tri-Configuration Performance Comparison
 
 | Metric | Tier 1 Only (Local) | LLM Only (Baseline Ceiling) | Sieve Pipeline (Tiered) | Delta (Sieve vs LLM) |
 | :--- | :--- | :--- | :--- | :--- |
@@ -169,7 +191,7 @@ The evaluation was executed on a held-out test partition ($N = 1,500$) comprisin
 
 ---
 
-## 5. Resilience Under Load & Kafka Buffering
+## 6. Resilience Under Load & Kafka Buffering
 
 When traffic surges (e.g. viral comment events):
 - **Direct LLM architectures** fail due to API rate limits (HTTP 429), connection exhaustion, or massive latency inflation.
@@ -177,7 +199,7 @@ When traffic surges (e.g. viral comment events):
 
 ---
 
-## 6. Project Structure
+## 7. Project Structure
 
 ```
 .
@@ -221,9 +243,9 @@ When traffic surges (e.g. viral comment events):
 
 ---
 
-## 7. Reproduction, Execution & Production Deployment
+## 8. Reproduction, Execution & Production Deployment
 
-### 7.1 Clone the Repository
+### 8.1 Clone the Repository
 
 ```bash
 git clone https://github.com/kentrussel-dev/sieve-chat-moderation.git
@@ -380,11 +402,18 @@ docker compose down -v
 
 ---
 
-## 8. Operator Manual & Feature Guide
+## 9. Operator Manual & Feature Guide
 
 This section outlines how to use and operate all capabilities of the Sieve platform.
 
-### 8.1 Live Stream Studio (`/`)
+### 9.1 Live Stream Studio (`/`)
+
+<p align="center">
+  <img width="950" alt="Figure 5: Live Stream Ingestion & 7TV Emote Sequence" src="https://github.com/user-attachments/assets/1d555cfa-7783-4ff3-8f64-07ace24be37d" />
+  <br>
+  <em>Figure 5: Live Twitch IRC WebSocket & 7TV Custom Emote Ingestion Sequence</em>
+</p>
+
 - **Connecting to Any Twitch Channel**:
   - Enter any active Twitch username into the top connection bar (e.g. `caedrel`, `tarik`, `shroud`, `esl_dota2`) and click **Connect Live**.
   - Sieve establishes an IRC WebSocket connection to Twitch chat and embeds the live video player.
@@ -417,7 +446,7 @@ This section outlines how to use and operate all capabilities of the Sieve platf
   - Sort chat in real-time by: `Live Feed`, `Highest Toxicity (p=1→0)`, `Cleanest (p=0→1)`, or `Slowest Latency`.
   - Toggle **Redact** to blur/mask toxic messages with a click-to-reveal toggle (`[Message hidden: Toxicity detected - Show]`).
 
-### 8.2 Real-Time Metrics & Pipeline Observability (`/metrics`)
+### 9.2 Real-Time Metrics & Pipeline Observability (`/metrics`)
 - **System Latency Percentiles**:
   - Real-time gauge cards for $P_{50}, P_{90}, P_{95}$, and $P_{99}$ latency across all processed traffic.
 - **Microservice Mesh Topology**:
@@ -427,19 +456,19 @@ This section outlines how to use and operate all capabilities of the Sieve platf
 - **6-Level Severity Distribution**:
   - Live percentage and volume breakdown across all 6 tiers.
 
-### 8.3 Confidence Distribution & Calibration Band (`/activity`)
+### 9.3 Confidence Distribution & Calibration Band (`/activity`)
 - **Confidence Distribution Histogram**:
   - Interactive histogram displaying the distribution of message scores across the 6 severity levels.
   - The dynamic Amber highlight visually marks the active $[\tau_{\text{low}}, \tau_{\text{high}}]$ LLM escalation window.
 - **Interactive Threshold Sliders**:
   - Adjust $\tau_{\text{low}}$ (lower bound) and $\tau_{\text{high}}$ (upper bound) in real-time to observe immediate impacts on the escalation percentage and system cost.
 
-### 8.4 Routing Lab & Sandbox (`/lab`)
+### 9.4 Routing Lab & Sandbox (`/lab`)
 - **Interactive Message Tester**:
   - Test arbitrary sentences or choose from pre-calibrated 6-level test chips (`L1 Clean`, `L2 Gaming Slang`, `L3 Sarcasm`, `L4 Subtle Hostility`, `L5 Toxic Flaming`, `L6 Severe Slur`).
   - View real-time routing outcome, resolution tier (`Mesh 1 Local` vs `Mesh 2 LLM`), probability score $p$, latency, and the LLM's contextual reasoning explanation.
 
-### 8.5 Thesis Benchmark Panel (`/thesis`)
+### 9.5 Thesis Benchmark Panel (`/thesis`)
 - **Tri-Configuration Comparative Evaluation**:
   - View side-by-side accuracy, precision, recall, F1, latency, and cost across `Tier 1 Only`, `LLM Only Baseline`, and `Sieve Tiered Pipeline`.
 - **Category Performance Table**:
@@ -447,7 +476,7 @@ This section outlines how to use and operate all capabilities of the Sieve platf
 
 ---
 
-## 9. Configuration & Environment Variables
+## 10. Configuration & Environment Variables
 
 | Variable | Default Value | Description |
 | :--- | :--- | :--- |
@@ -463,9 +492,9 @@ This section outlines how to use and operate all capabilities of the Sieve platf
 
 ---
 
-## 10. Credits, Dataset Acknowledgments & References
+## 11. Credits, Dataset Acknowledgments & References
 
-### 10.1 Academic Papers & Research Foundations
+### 11.1 Academic Papers & Research Foundations
 1. **CONDA Gaming Toxicity Dataset**:
    - Zheng, C., et al. *"CONDA: a CONtextual Dual-Annotated dataset for in-game toxicity detection and intent classification."* Findings of the Association for Computational Linguistics: EMNLP 2020.
    - Introduced fine-grained contextual multi-player gaming chat annotations distinguishing explicit toxicity from strategic in-game banter.
@@ -476,12 +505,12 @@ This section outlines how to use and operate all capabilities of the Sieve platf
    - Chen, L., Zaharia, M., & Zou, J. *"FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance."* arXiv:2305.05176, 2023.
    - Conceptual inspiration for dynamic threshold escalation and LLM cost-efficiency cascades.
 
-### 10.2 Datasets
+### 11.2 Datasets
 - **CONDA Dataset**: Real in-game Dota 2 match logs containing 44,000+ utterances dual-annotated with intent and toxicity categories.
 - **Sensai Benchmark Dataset**: Curated live stream chat corpus spanning esports broadcasts, high-velocity community chats, and ambiguous linguistic edge cases.
 - **Jigsaw / Civil Comments Corpus**: Kaggle / Alphabet Jigsaw Toxic Comment Classification Challenge for baseline toxicity taxonomy and pre-training corpora.
 
-### 10.3 Open-Source Technologies & Ecosystem
+### 11.3 Open-Source Technologies & Ecosystem
 - **Event Streaming**: [Apache Kafka](https://kafka.apache.org/) (KRaft Metadata Mode)
 - **High-Throughput Services**: [Go](https://go.dev/) (Go Concurrency, Worker Pools, HTTP Connection Pooling)
 - **Backend API & ML Engine**: [FastAPI](https://fastapi.tiangolo.com/), [Uvicorn](https://www.uvicorn.org/), [Scikit-Learn](https://scikit-learn.org/), [ONNX Runtime](https://onnxruntime.ai/)
@@ -490,9 +519,10 @@ This section outlines how to use and operate all capabilities of the Sieve platf
 
 ---
 
-## 11. Limitations and Future Work
+## 12. Limitations and Future Work
 
 1. **Multilingual Generalization**: The Tier 1 vocabulary in this benchmark focuses on English text. Multilingual deployments should substitute multilingual transformer backends (e.g. `XLM-RoBERTa` or `mDeBERTa`).
 2. **Dynamic Threshold Tuning**: Current thresholds $[\tau_{\text{low}}, \tau_{\text{high}}]$ are static post-calibration. Future work will investigate adaptive threshold shifting based on real-time LLM API queue depth and cost budgets.
 3. **Multi-Label Policy Routing**: Extending binary toxicity classification to separate policy categories (hate speech, sexual content, severe harassment) with individual per-category threshold pairs.
+
 
