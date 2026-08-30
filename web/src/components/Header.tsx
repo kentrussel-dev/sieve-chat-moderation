@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Shield } from 'lucide-react';
+import { User } from 'lucide-react';
 
 interface HeaderProps {
   searchQuery?: string;
@@ -11,9 +11,13 @@ export const Header: React.FC<HeaderProps> = () => {
     <div className="flex h-16 w-full select-none font-sans border-b border-[#2f2f35]">
       
       {/* Top Left Brand Box (Twitch Signature Purple) */}
-      <div className="flex w-72 lg:w-80 items-center justify-between bg-[#9146ff] px-6 shadow-sm">
-        <div className="flex items-center gap-2.5">
-          <Shield className="h-6 w-6 text-white fill-current" />
+      <div className="flex w-72 lg:w-80 items-center justify-between bg-[#9146ff] px-5 shadow-sm">
+        <div className="flex items-center gap-3">
+          <img 
+            src="/logo.png" 
+            alt="Sieve Logo" 
+            className="h-9 w-9 object-contain rounded-md shadow-sm filter drop-shadow hover:scale-105 transition-transform" 
+          />
           <span className="text-xl font-black tracking-[0.25em] text-white uppercase">
             SIEVE
           </span>

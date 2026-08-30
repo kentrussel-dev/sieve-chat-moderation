@@ -1,4 +1,8 @@
-# Sieve: A Tiered Real-Time Content Moderation Pipeline Combining Fine-Tuned Classification and LLM Escalation
+<p align="center">
+  <img width="180" alt="Sieve Logo" src="logo.png" />
+  <h1 align="center">Sieve: A Tiered Real-Time Content Moderation Pipeline</h1>
+  <p align="center"><strong>Combining Fine-Tuned Classification and LLM Escalation</strong></p>
+</p>
 
 ## Abstract
 
