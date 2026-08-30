@@ -455,9 +455,8 @@ The **Live Stream Studio** is the primary operator command center for monitoring
      - `• Review Queue`: Borderline messages near the Level 2/3 boundary flagged for human audit.
    - *Zero-Starvation Guarantee*: Each category maintains a persistent 100-message buffer so rare violations never get pushed out by high clean chat velocity.
 
-4. **Visual Severity Highlighting & Redaction**:
-   - Violations are visually highlighted: **Orange** for Level 4 Hostility, **Rose** for Level 5 Toxicity, and **Purple** for Level 6 Severe.
-   - Toggle **Redact** to automatically blur/mask toxic messages with a click-to-reveal toggle (`[Message hidden: Toxicity detected - Show]`).
+4. **Visual Severity Highlighting**:
+   - Violations are visually highlighted: **Orange** for Level 4 Hostility, **Rose** for Level 5 Toxicity, and **Purple** for Level 6 Severe, allowing moderators to immediately spot threats in high-velocity streams.
 
 5. **Streaming Offline Match & Benchmark Datasets**:
    - **CONDA Game Replay**: Click **CONDA Game Replay** to stream multi-player in-game match communications from the CONDA Dota 2 dataset (20 msgs/s) to evaluate aggressive gaming slang and intent classification in real-time.

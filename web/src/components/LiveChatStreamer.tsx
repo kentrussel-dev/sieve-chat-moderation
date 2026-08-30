@@ -3,8 +3,6 @@ import {
   Tv,
   Play,
   RefreshCw,
-  Eye,
-  EyeOff,
   ExternalLink,
   MessageSquare,
   Radio,
@@ -38,10 +36,6 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, cate
 
   const [condaRunning, setCondaRunning] = useState(false);
   const [condaRate] = useState(20);
-
-  // Moderation filter settings
-  const [redactToxic, setRedactToxic] = useState(false);
-  const [revealedIds, setRevealedIds] = useState<Record<string, boolean>>({});
 
   // 6-Level Filter & Sorting State
   const [selectedLevelFilter, setSelectedLevelFilter] = useState<FilterType>('all');
@@ -396,10 +390,6 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, cate
       });
       await fetch('/api/telemetry/clear', { method: 'POST' });
     } catch (err) {}
-  };
-
-  const toggleReveal = (id: string) => {
-    setRevealedIds((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const currentHostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
@@ -913,20 +903,6 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, cate
                   </div>
                 )}
               </div>
-
-              <button
-                type="button"
-                onClick={() => setRedactToxic(!redactToxic)}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold border transition-colors cursor-pointer ${
-                  redactToxic
-                    ? 'bg-rose-950/40 border-rose-600/50 text-rose-300'
-                    : 'bg-[#0e0e10] border-[#2f2f35] text-slate-400 hover:text-white'
-                }`}
-                title="Redact / Hide flagged messages"
-              >
-                {redactToxic ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-                {redactToxic ? 'Redact On' : 'Redact'}
-              </button>
             </div>
           </div>
 
@@ -955,11 +931,8 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, cate
               displayedMessages.map((evt) => {
                 const lvl = getEffectiveLevel(evt);
                 const theme = levelThemeMap[lvl] || levelThemeMap[1];
-                const isPassed = evt.status === 'PASSED';
                 const isTier2 = evt.resolved_by_tier === 'TIER_2';
-                const isFlagged = !isPassed;
                 const userColor = getTwitchUserColor(evt.username || 'user');
-                const isRedacted = redactToxic && isFlagged && !revealedIds[evt.id];
                 const scoreValue = (evt.toxicity_score ?? evt.tier1_score ?? 0).toFixed(2);
 
                 // Row highlight based on severity:
@@ -1014,19 +987,7 @@ export const LiveChatStreamer: React.FC<LiveChatStreamerProps> = ({ events, cate
 
                       {/* Message Content */}
                       <span className="text-[#efeff1] text-xs leading-relaxed break-words">
-                        {isRedacted ? (
-                          <span className="text-rose-400 text-xs italic bg-rose-950/30 px-2 py-0.5 rounded border border-rose-900/40">
-                            [Message hidden: {evt.category || 'Toxicity detected'}]
-                            <button
-                              onClick={() => toggleReveal(evt.id)}
-                              className="ml-2 text-slate-300 hover:text-white underline font-bold"
-                            >
-                              Show
-                            </button>
-                          </span>
-                        ) : (
-                          renderChatMessageWithEmotes(evt.text)
-                        )}
+                        {renderChatMessageWithEmotes(evt.text)}
                       </span>
                     </div>
 
