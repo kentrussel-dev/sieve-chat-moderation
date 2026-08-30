@@ -13,6 +13,23 @@ Empirical evaluation on a held-out test corpus of 1,500 samples demonstrates tha
 
 ---
 
+Diagram 1: End-to-End System Architecture & Streaming Lifecycle
+<img width="1290" height="912" alt="image" src="https://github.com/user-attachments/assets/857a719d-169a-47ff-8ae1-545281e214fd" />
+
+Diagram 2: Diagram 2: Two-Tier Decision Boundary & Threshold Calibration
+<img width="414" height="903" alt="image" src="https://github.com/user-attachments/assets/1be7cd24-8c63-4f7f-a535-5e3d376a1017" />
+
+Diagram 3: 6-Level Moderation Scale & Action Routing Matrix
+<img width="948" height="682" alt="image" src="https://github.com/user-attachments/assets/a442cfaa-9e8a-492a-ae0b-885583284f6f" />
+
+Diagram 4: Microservices Topology & Kafka KRaft Topic Interconnect
+<img width="1701" height="492" alt="image" src="https://github.com/user-attachments/assets/9b0e650e-3151-4309-8baf-bc447d7939c5" />
+
+Diagram 5: Live Stream Ingestion & 7TV Emote Sequence
+<img width="1203" height="707" alt="image" src="https://github.com/user-attachments/assets/1d555cfa-7783-4ff3-8f64-07ace24be37d" />
+
+
+
 ## 1. Problem Formulation and Operational Trilemma
 
 ### 1.1 The Production Moderation Trilemma
