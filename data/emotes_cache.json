@@ -1,0 +1,974 @@
+{
+  "updated_at": 1788105368,
+  "total_emotes": 121,
+  "emotes": {
+    ":tf:": {
+      "name": ":tf:",
+      "source": "bttv",
+      "id": "54fa8f1401e468494b85b537",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "CiGrip": {
+      "name": "CiGrip",
+      "source": "bttv",
+      "id": "54fa8fce01e468494b85b53c",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "DatSauce": {
+      "name": "DatSauce",
+      "source": "bttv",
+      "id": "54fa903b01e468494b85b53f",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ForeverAlone": {
+      "name": "ForeverAlone",
+      "source": "bttv",
+      "id": "54fa909b01e468494b85b542",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "GabeN": {
+      "name": "GabeN",
+      "source": "bttv",
+      "id": "54fa90ba01e468494b85b543",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "HailHelix": {
+      "name": "HailHelix",
+      "source": "bttv",
+      "id": "54fa90f201e468494b85b545",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ShoopDaWhoop": {
+      "name": "ShoopDaWhoop",
+      "source": "bttv",
+      "id": "54fa932201e468494b85b555",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "M&Mjc": {
+      "name": "M&Mjc",
+      "source": "bttv",
+      "id": "54fab45f633595ca4c713abc",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "bttvNice": {
+      "name": "bttvNice",
+      "source": "bttv",
+      "id": "54fab7d2633595ca4c713abf",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "TwaT": {
+      "name": "TwaT",
+      "source": "bttv",
+      "id": "54fa935601e468494b85b557",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "WatChuSay": {
+      "name": "WatChuSay",
+      "source": "bttv",
+      "id": "54fa99b601e468494b85b55d",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "tehPoleCat": {
+      "name": "tehPoleCat",
+      "source": "bttv",
+      "id": "566ca11a65dbbdab32ec0558",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "AngelThump": {
+      "name": "AngelThump",
+      "source": "bttv",
+      "id": "566ca1a365dbbdab32ec055b",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "TaxiBro": {
+      "name": "TaxiBro",
+      "source": "bttv",
+      "id": "54fbefeb01abde735115de5b",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "BroBalt": {
+      "name": "BroBalt",
+      "source": "bttv",
+      "id": "54fbf00a01abde735115de5c",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "CandianRage": {
+      "name": "CandianRage",
+      "source": "bttv",
+      "id": "54fbf09c01abde735115de61",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "D:": {
+      "name": "D:",
+      "source": "bttv",
+      "id": "55028cd2135896936880fdd7",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "VisLaud": {
+      "name": "VisLaud",
+      "source": "bttv",
+      "id": "550352766f86a5b26c281ba2",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "KaRappa": {
+      "name": "KaRappa",
+      "source": "bttv",
+      "id": "550b344bff8ecee922d2a3c1",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FishMoley": {
+      "name": "FishMoley",
+      "source": "bttv",
+      "id": "566ca00f65dbbdab32ec0544",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Hhhehehe": {
+      "name": "Hhhehehe",
+      "source": "bttv",
+      "id": "566ca02865dbbdab32ec0547",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "KKona": {
+      "name": "KKona",
+      "source": "bttv",
+      "id": "566ca04265dbbdab32ec054a",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PoleDoge": {
+      "name": "PoleDoge",
+      "source": "bttv",
+      "id": "566ca09365dbbdab32ec0555",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "sosGame": {
+      "name": "sosGame",
+      "source": "bttv",
+      "id": "553b48a21f145f087fc15ca6",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "CruW": {
+      "name": "CruW",
+      "source": "bttv",
+      "id": "55471c2789d53f2d12781713",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RarePepe": {
+      "name": "RarePepe",
+      "source": "bttv",
+      "id": "555015b77676617e17dd2e8e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "haHAA": {
+      "name": "haHAA",
+      "source": "bttv",
+      "id": "555981336ba1901877765555",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsBirthdayMan": {
+      "name": "FeelsBirthdayMan",
+      "source": "bttv",
+      "id": "55b6524154eefd53777b2580",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RonSmug": {
+      "name": "RonSmug",
+      "source": "bttv",
+      "id": "55f324c47f08be9f0a63cce0",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "KappaCool": {
+      "name": "KappaCool",
+      "source": "bttv",
+      "id": "560577560874de34757d2dc0",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsBadMan": {
+      "name": "FeelsBadMan",
+      "source": "bttv",
+      "id": "566c9fc265dbbdab32ec053b",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "bUrself": {
+      "name": "bUrself",
+      "source": "bttv",
+      "id": "566c9f3b65dbbdab32ec052e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ConcernDoge": {
+      "name": "ConcernDoge",
+      "source": "bttv",
+      "id": "566c9f6365dbbdab32ec0532",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsGoodMan": {
+      "name": "FeelsGoodMan",
+      "source": "bttv",
+      "id": "566c9fde65dbbdab32ec053e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FireSpeed": {
+      "name": "FireSpeed",
+      "source": "bttv",
+      "id": "566c9ff365dbbdab32ec0541",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "NaM": {
+      "name": "NaM",
+      "source": "bttv",
+      "id": "566ca06065dbbdab32ec054e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "SourPls": {
+      "name": "SourPls",
+      "source": "bttv",
+      "id": "566ca38765dbbdab32ec0560",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsSnowMan": {
+      "name": "FeelsSnowMan",
+      "source": "bttv",
+      "id": "566dde0e65dbbdab32ec068f",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsSnowyMan": {
+      "name": "FeelsSnowyMan",
+      "source": "bttv",
+      "id": "566decae65dbbdab32ec0699",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "LuL": {
+      "name": "LuL",
+      "source": "bttv",
+      "id": "567b00c61ddbe1786688a633",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "SaltyCorn": {
+      "name": "SaltyCorn",
+      "source": "bttv",
+      "id": "56901914991f200c34ffa656",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "monkaS": {
+      "name": "monkaS",
+      "source": "bttv",
+      "id": "56e9f494fff3cc5c35e5287e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "VapeNation": {
+      "name": "VapeNation",
+      "source": "bttv",
+      "id": "56f5be00d48006ba34f530a4",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ariW": {
+      "name": "ariW",
+      "source": "bttv",
+      "id": "56fa09f18eff3b595e93ac26",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "notsquishY": {
+      "name": "notsquishY",
+      "source": "bttv",
+      "id": "5709ab688eff3b595e93c595",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsAmazingMan": {
+      "name": "FeelsAmazingMan",
+      "source": "bttv",
+      "id": "5733ff12e72c3c0814233e20",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "DuckerZ": {
+      "name": "DuckerZ",
+      "source": "bttv",
+      "id": "573d38b50ffbf6cc5cc38dc9",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsPumpkinMan": {
+      "name": "FeelsPumpkinMan",
+      "source": "bttv",
+      "id": "580e438942170bfd57189866",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "SqShy": {
+      "name": "SqShy",
+      "source": "bttv",
+      "id": "59cf182fcbe2693d59d7bf46",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Wowee": {
+      "name": "Wowee",
+      "source": "bttv",
+      "id": "58d2e73058d8950a875ad027",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "WubTF": {
+      "name": "WubTF",
+      "source": "bttv",
+      "id": "5dc36a8db537d747e37ac187",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "cvR": {
+      "name": "cvR",
+      "source": "bttv",
+      "id": "5e76d2ab8c0f5c3723a9a87d",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "cvL": {
+      "name": "cvL",
+      "source": "bttv",
+      "id": "5e76d2d2d112fc372574d222",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "cvHazmat": {
+      "name": "cvHazmat",
+      "source": "bttv",
+      "id": "5e76d338d6581c3724c0f0b2",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "cvMask": {
+      "name": "cvMask",
+      "source": "bttv",
+      "id": "5e76d399d6581c3724c0f0b8",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "DogChamp": {
+      "name": "DogChamp",
+      "source": "bttv",
+      "id": "5ffdf28dc96152314ad63960",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "c!": {
+      "name": "c!",
+      "source": "bttv",
+      "id": "6468f7acaee1f7f47567708e",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "h!": {
+      "name": "h!",
+      "source": "bttv",
+      "id": "6468f845aee1f7f47567709b",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "l!": {
+      "name": "l!",
+      "source": "bttv",
+      "id": "6468f869aee1f7f4756770a8",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "r!": {
+      "name": "r!",
+      "source": "bttv",
+      "id": "6468f883aee1f7f4756770b5",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "v!": {
+      "name": "v!",
+      "source": "bttv",
+      "id": "6468f89caee1f7f4756770c2",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "z!": {
+      "name": "z!",
+      "source": "bttv",
+      "id": "6468f8d1aee1f7f4756770cf",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "w!": {
+      "name": "w!",
+      "source": "bttv",
+      "id": "64e3b31920cb0d25d950a9f9",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "p!": {
+      "name": "p!",
+      "source": "bttv",
+      "id": "65cbe7dbaed093b2eaf87c65",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "s!": {
+      "name": "s!",
+      "source": "bttv",
+      "id": "662953eeea369c0ece39eb93",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RainTime": {
+      "name": "RainTime",
+      "source": "7tv",
+      "id": "01FCY771D800007PQ2DF3GDTN6",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PETPET": {
+      "name": "PETPET",
+      "source": "7tv",
+      "id": "01FE3XY508000AA32JP519W2EW",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ppL": {
+      "name": "ppL",
+      "source": "7tv",
+      "id": "01GGD5PJA8000FH13S498E9D8X",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Clap2": {
+      "name": "Clap2",
+      "source": "7tv",
+      "id": "01GB2TN09G000AZXHZ8HNEZX6G",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Clap": {
+      "name": "Clap",
+      "source": "7tv",
+      "id": "01GAM8EFQ00004MXFXAJYKA859",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PepePls": {
+      "name": "PepePls",
+      "source": "7tv",
+      "id": "01GAFTZ9K80003DHH026MC7JW0",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "peepoHappy": {
+      "name": "peepoHappy",
+      "source": "7tv",
+      "id": "01GAZ199Z8000FEWHS6AT5QZV0",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "peepoSad": {
+      "name": "peepoSad",
+      "source": "7tv",
+      "id": "01GAZ4SBX80007YCE2RXBT44B2",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsDankMan": {
+      "name": "FeelsDankMan",
+      "source": "7tv",
+      "id": "01GB9W8JN80004CKF2H1TWA99H",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "BillyApprove": {
+      "name": "BillyApprove",
+      "source": "7tv",
+      "id": "01GB2S7H7000018VJGJ4A9BMFS",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "forsenPls": {
+      "name": "forsenPls",
+      "source": "7tv",
+      "id": "01GB8EQNJ8000497KFBZWNSDFZ",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RoxyPotato": {
+      "name": "RoxyPotato",
+      "source": "7tv",
+      "id": "01GB54CZTG0004ZBZEDT30HE2M",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "gachiBASS": {
+      "name": "gachiBASS",
+      "source": "7tv",
+      "id": "01GB4P2HX0000BJ5HR8F6XV9Q0",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "(7TV)": {
+      "name": "(7TV)",
+      "source": "7tv",
+      "id": "01GKQXGX1R000216YB0K7GN92X",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PartyParrot": {
+      "name": "PartyParrot",
+      "source": "7tv",
+      "id": "01FKSDK14G0008TM5NY9QEG0QV",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RebeccaBlack": {
+      "name": "RebeccaBlack",
+      "source": "7tv",
+      "id": "01GB5VC57000003DZTMZQNY944",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "reckH": {
+      "name": "reckH",
+      "source": "7tv",
+      "id": "01F014S6KG0007E4VV006YKSM3",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "WAYTOODANK": {
+      "name": "WAYTOODANK",
+      "source": "7tv",
+      "id": "01G98W833R0000BRQD106P0ZNT",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "AlienDance": {
+      "name": "AlienDance",
+      "source": "7tv",
+      "id": "01GB2ZJFBG000DTBJYANG8XYFP",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Gayge": {
+      "name": "Gayge",
+      "source": "7tv",
+      "id": "01G4GQC5H0000D3DGNAYJJP8EB",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "ApuApustaja": {
+      "name": "ApuApustaja",
+      "source": "7tv",
+      "id": "01GGCQPCGR000C7MT8JZGP6E89",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "BasedGod": {
+      "name": "BasedGod",
+      "source": "7tv",
+      "id": "01GB9W2CDG000BFSD141G0MGSA",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "GuitarTime": {
+      "name": "GuitarTime",
+      "source": "7tv",
+      "id": "01G98V5RFG0001CD052SPS435F",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "peepoPls": {
+      "name": "peepoPls",
+      "source": "7tv",
+      "id": "01HM524VE80004SKSHMCZWXH1T",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "TeaTime": {
+      "name": "TeaTime",
+      "source": "7tv",
+      "id": "01HM4P26CR000449DZBT4FVMA5",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "WineTime": {
+      "name": "WineTime",
+      "source": "7tv",
+      "id": "01HM4PGHC80007635TAZG67FT5",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PianoTime": {
+      "name": "PianoTime",
+      "source": "7tv",
+      "id": "01G98V81Q80000BRQD106P0ZEK",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "CrayonTime": {
+      "name": "CrayonTime",
+      "source": "7tv",
+      "id": "01G98TT6BR000A39K5ZSQFTPWR",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "nymnCorn": {
+      "name": "nymnCorn",
+      "source": "7tv",
+      "id": "01HM6NJ2X000035ZKVAPWBNW26",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "SteerR": {
+      "name": "SteerR",
+      "source": "7tv",
+      "id": "01HM2F7Q1R00022X3E2804NBNQ",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "sevenTV": {
+      "name": "sevenTV",
+      "source": "7tv",
+      "id": "01J107C3E8000DX4MZBQSYGRXS",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "nanaAYAYA": {
+      "name": "nanaAYAYA",
+      "source": "7tv",
+      "id": "01FTEZEE900001E12995B12GR4",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "BibleThump": {
+      "name": "BibleThump",
+      "source": "7tv",
+      "id": "01J8NMZ2HG0005G1FWF2H9Y615",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "glorp": {
+      "name": "glorp",
+      "source": "7tv",
+      "id": "01H16FA16G0005EZED5J0EY7KN",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Stare": {
+      "name": "Stare",
+      "source": "7tv",
+      "id": "01GG3YGWK8000DWE419062SG28",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "aceStare": {
+      "name": "aceStare",
+      "source": "7tv",
+      "id": "01JY2MX5BE5BVWWFV153ANMMHZ",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "gachiGASM": {
+      "name": "gachiGASM",
+      "source": "7tv",
+      "id": "01F9EM2ETG000E7SC8F953GXCX",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "AYAYA": {
+      "name": "AYAYA",
+      "source": "7tv",
+      "id": "01GB32XE6R00018VJGJ4A9BNCV",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "RareParrot": {
+      "name": "RareParrot",
+      "source": "7tv",
+      "id": "01GB4XE3ZR000DKFRGM9Q1M7VS",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsWeirdMan": {
+      "name": "FeelsWeirdMan",
+      "source": "7tv",
+      "id": "01GB4FWTR8000DGEZ8VYY59RBN",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "EZ": {
+      "name": "EZ",
+      "source": "7tv",
+      "id": "01GB4CK01800090V9B3D8CGEEX",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsOkayMan": {
+      "name": "FeelsOkayMan",
+      "source": "7tv",
+      "id": "01GB46137R000BJ5HR8F6XV8J1",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "FeelsStrongMan": {
+      "name": "FeelsStrongMan",
+      "source": "7tv",
+      "id": "01GB4EV0Q800090V9B3D8CGEHV",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "7Cinema": {
+      "name": "7Cinema",
+      "source": "7tv",
+      "id": "01GBFDVP18000CRDCG0DV7KEMY",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "xdx": {
+      "name": "xdx",
+      "source": "7tv",
+      "id": "01FZBTBQDG000DX0N9GHCRXYPH",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "KEKW": {
+      "name": "KEKW",
+      "source": "7tv",
+      "id": "fallback",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "OMEGALUL": {
+      "name": "OMEGALUL",
+      "source": "bttv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Pog": {
+      "name": "Pog",
+      "source": "bttv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PogChamp": {
+      "name": "PogChamp",
+      "source": "twitch",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "POGGERS": {
+      "name": "POGGERS",
+      "source": "bttv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "GIGACHAD": {
+      "name": "GIGACHAD",
+      "source": "7tv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "catJAM": {
+      "name": "catJAM",
+      "source": "7tv",
+      "id": "fallback",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Copium": {
+      "name": "Copium",
+      "source": "7tv",
+      "id": "fallback",
+      "animated": true,
+      "scope": "global",
+      "channel_id": null
+    },
+    "PepeHands": {
+      "name": "PepeHands",
+      "source": "bttv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Sadge": {
+      "name": "Sadge",
+      "source": "7tv",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    },
+    "Kappa": {
+      "name": "Kappa",
+      "source": "twitch",
+      "id": "fallback",
+      "animated": false,
+      "scope": "global",
+      "channel_id": null
+    }
+  }
+}

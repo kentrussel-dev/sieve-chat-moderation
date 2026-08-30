@@ -1,0 +1,100 @@
+{
+  "entities": {
+    "Riot": {
+      "type": "publisher",
+      "canonical_name": "Riot Games",
+      "description": "Video game developer and publisher of League of Legends, Valorant, and Teamfight Tactics."
+    },
+    "Riot Games": {
+      "type": "publisher",
+      "canonical_name": "Riot Games",
+      "description": "Video game developer and publisher of League of Legends, Valorant, and Teamfight Tactics."
+    },
+    "Valve": {
+      "type": "publisher",
+      "canonical_name": "Valve Corporation",
+      "description": "Developer of Dota 2, Counter-Strike, Steam, and Half-Life."
+    },
+    "Blizzard": {
+      "type": "publisher",
+      "canonical_name": "Blizzard Entertainment",
+      "description": "Developer of Overwatch, World of Warcraft, StarCraft, and Diablo."
+    },
+    "Epic Games": {
+      "type": "publisher",
+      "canonical_name": "Epic Games",
+      "description": "Developer of Fortnite and Unreal Engine."
+    },
+    "Overwatch": {
+      "type": "game_title",
+      "canonical_name": "Overwatch 2",
+      "description": "Team-based hero shooter by Blizzard Entertainment."
+    },
+    "Valorant": {
+      "type": "game_title",
+      "canonical_name": "Valorant",
+      "description": "Tactical hero shooter by Riot Games."
+    },
+    "LoL": {
+      "type": "game_title",
+      "canonical_name": "League of Legends",
+      "description": "Multiplayer online battle arena game by Riot Games."
+    },
+    "League of Legends": {
+      "type": "game_title",
+      "canonical_name": "League of Legends",
+      "description": "Multiplayer online battle arena game by Riot Games."
+    },
+    "Dota": {
+      "type": "game_title",
+      "canonical_name": "Dota 2",
+      "description": "Multiplayer online battle arena game by Valve."
+    },
+    "Dota 2": {
+      "type": "game_title",
+      "canonical_name": "Dota 2",
+      "description": "Multiplayer online battle arena game by Valve."
+    },
+    "CS2": {
+      "type": "game_title",
+      "canonical_name": "Counter-Strike 2",
+      "description": "Tactical first-person shooter by Valve."
+    },
+    "CSGO": {
+      "type": "game_title",
+      "canonical_name": "Counter-Strike: Global Offensive",
+      "description": "Tactical first-person shooter by Valve."
+    },
+    "Apex Legends": {
+      "type": "game_title",
+      "canonical_name": "Apex Legends",
+      "description": "Battle royale hero shooter by Respawn Entertainment."
+    },
+    "Fortnite": {
+      "type": "game_title",
+      "canonical_name": "Fortnite",
+      "description": "Battle royale game by Epic Games."
+    },
+    "Wild Rift": {
+      "type": "game_title",
+      "canonical_name": "League of Legends: Wild Rift",
+      "description": "Mobile and console adaptation of League of Legends."
+    },
+    "Blitz": {
+      "type": "entity",
+      "canonical_name": "Blitz / Blitzcrank",
+      "description": "League of Legends champion (Blitzcrank) or Blitz.gg companion gaming application."
+    },
+    "Blitzcrank": {
+      "type": "entity",
+      "canonical_name": "Blitzcrank",
+      "description": "Playable Great Steam Golem champion in League of Legends."
+    }
+  },
+  "verified_categories": [
+    "publisher",
+    "game_title",
+    "entity",
+    "platform"
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "emotes": {
+    "KEKW": {
+      "category": "playful/laughing",
+      "description": "El Risitas laughing, universally denotes laughter, amusement, or comical situations."
+    },
+    "OMEGALUL": {
+      "category": "playful/laughing",
+      "description": "Extreme laughter variant of LUL, conveys intense amusement."
+    },
+    "LUL": {
+      "category": "playful/laughing",
+      "description": "TotalBiscuit laughing face, standard Twitch laughter emote."
+    },
+    "LULW": {
+      "category": "playful/laughing",
+      "description": "High-res zoomed-in LUL, indicates laughter/amusement."
+    },
+    "pepeLaugh": {
+      "category": "playful/laughing",
+      "description": "Pepe holding in laughter with 'he doesn't know' connotation."
+    },
+    "LO": {
+      "category": "playful/laughing",
+      "description": "Popular fast laughter emote on 7TV/Twitch (Caedrel/League streams)."
+    },
+    "ICANT": {
+      "category": "playful/laughing",
+      "description": "I Can't Even / extreme laughter variant."
+    },
+    "catJAM": {
+      "category": "playful/laughing",
+      "description": "Cat headbobbing to music, signifies positive vibes and enjoyment."
+    },
+    "HYPERCLAP": {
+      "category": "playful/laughing",
+      "description": "Fast clapping, enthusiastic amusement or applause."
+    },
+    "Clap": {
+      "category": "playful/laughing",
+      "description": "Applauding or cheering on a fun moment."
+    },
+    "PogChamp": {
+      "category": "celebratory",
+      "description": "Classic celebration, shock, excitement, or impressive high-tier play."
+    },
+    "Pog": {
+      "category": "celebratory",
+      "description": "Excitement or celebration of a great in-game play."
+    },
+    "POGGERS": {
+      "category": "celebratory",
+      "description": "Pepe variant of PogChamp celebrating an exciting moment."
+    },
+    "GIGACHAD": {
+      "category": "celebratory",
+      "description": "Used to praise admirable, dominant, or hyper-confident gameplay."
+    },
+    "NODDERS": {
+      "category": "celebratory",
+      "description": "Nodding in strong agreement, approval, or affirmation."
+    },
+    "FeelsGoodMan": {
+      "category": "celebratory",
+      "description": "Contentment, satisfaction, or positive outcome."
+    },
+    "5Head": {
+      "category": "celebratory",
+      "description": "Used to praise high-IQ, genius plays or intelligent strategy."
+    },
+    "Copium": {
+      "category": "sarcasm-marker",
+      "description": "Denotes self-delusion, denial, or ironic rationalization of a loss/mistake."
+    },
+    "Hopium": {
+      "category": "sarcasm-marker",
+      "description": "Blind optimism or ironic hope in a losing situation."
+    },
+    "monkaS": {
+      "category": "sarcasm-marker",
+      "description": "Sweating Pepe, conveys anxiety, tension, or ironic suspense."
+    },
+    "monkaW": {
+      "category": "sarcasm-marker",
+      "description": "Zoomed-in monkaS indicating intense or mock panic."
+    },
+    "Aware": {
+      "category": "sarcasm-marker",
+      "description": "Sudden grim realization, ironic disillusionment, or despair."
+    },
+    "Clueless": {
+      "category": "sarcasm-marker",
+      "description": "Pretending not to know about impending disaster; heavy irony marker."
+    },
+    "DESPAIR": {
+      "category": "sarcasm-marker",
+      "description": "Dramatic despair or satirical hopelessness."
+    },
+    "Kappa": {
+      "category": "sarcasm-marker",
+      "description": "The quintessential Twitch sarcasm, trolling, and irony marker."
+    },
+    "Kapp": {
+      "category": "sarcasm-marker",
+      "description": "Shorthand variant of Kappa calling out doubt, lies, or sarcasm."
+    },
+    "FeelsWeirdMan": {
+      "category": "sarcasm-marker",
+      "description": "Awkwardness, cringe, or questionable chat behavior."
+    },
+    "WeirdChamp": {
+      "category": "sarcasm-marker",
+      "description": "Disapproval of cringe, weird, or uncalled-for remarks."
+    },
+    "Pepega": {
+      "category": "hostile/mocking",
+      "description": "Used to mock foolish, brainless, or severely miscalculated plays."
+    },
+    "BabyRage": {
+      "category": "hostile/mocking",
+      "description": "Mocks childish tantrums, whining, or sore losers."
+    },
+    "4Head": {
+      "category": "hostile/mocking",
+      "description": "Used ironically to dismiss oversimplified advice ('just win 4Head')."
+    },
+    "3Head": {
+      "category": "hostile/mocking",
+      "description": "Used to mock low-intelligence, foolish, or silly mistakes."
+    },
+    "PepeHands": {
+      "category": "unclassified",
+      "description": "Crying Pepe, denotes sadness or grief (can be sincere or comical)."
+    },
+    "Sadge": {
+      "category": "unclassified",
+      "description": "Depressed Pepe, signifies mild sadness, pity, or disappointment."
+    },
+    "Prayge": {
+      "category": "unclassified",
+      "description": "Praying hands, expressing hope or pleading for RNG."
+    },
+    "NOPERS": {
+      "category": "unclassified",
+      "description": "Shaking head no, simple denial or rejection."
+    },
+    "HUH": {
+      "category": "unclassified",
+      "description": "Confusion or shock at an unexpected comment."
+    }
+  },
+  "valid_categories": [
+    "playful/laughing",
+    "celebratory",
+    "sarcasm-marker",
+    "hostile/mocking",
+    "unclassified"
+  ],
+  "scoring_adjustments": {
+    "playful/laughing": {
+      "multiplier": 0.40,
+      "max_clamped_score": 0.25,
+      "description": "Multiplies raw score by 0.40 and clamps to Level 1/2 for playful/laughing intent."
+    },
+    "celebratory": {
+      "multiplier": 0.40,
+      "max_clamped_score": 0.25,
+      "description": "Multiplies raw score by 0.40 and clamps to Level 1/2 for celebratory praise."
+    },
+    "hostile/mocking": {
+      "multiplier": 1.25,
+      "min_floor_score": 0.62,
+      "description": "Boosts score and enforces Level 4 escalation for mocking/ridiculing intent."
+    },
+    "sarcasm-marker": {
+      "multiplier": 1.10,
+      "min_floor_score": 0.50,
+      "description": "Escalates ambiguous messages to Mesh 2 LLM."
+    },
+    "unclassified": {
+      "multiplier": 1.0,
+      "description": "No adjustment applied to unverified emotes."
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0c0e12;
+    color: #d1d5db;
+    font-feature-settings: "tnum" 1, "zero" 1, "cv01" 1;
+  }
+
+  /* Force monospace elements to always render tabular digits to eliminate layout jitter */
+  code, kbd, samp, pre, .font-mono {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+/* Mechanical flat scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0e12;
+}
+::-webkit-scrollbar-thumb {
+  background: #222630;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e3442;
+}
+
+/* Subtle data pulse */
+@keyframes dataPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.animate-pulse-slow {
+  animation: dataPulse 3s ease-in-out infinite;
+}
+
+/* Engineering mesh grid pattern */
+.bg-mesh-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}

@@ -1,0 +1,22 @@
+FROM golang:1.23-alpine AS builder
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/producer ./cmd/producer
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/tier1 ./cmd/tier1
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/tier2 ./cmd/tier2
+RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/benchmark ./cmd/benchmark
+
+FROM alpine:3.20
+
+WORKDIR /app
+RUN apk add --no-cache ca-certificates
+
+COPY --from=builder /bin/producer /bin/tier1 /bin/tier2 /bin/benchmark /usr/local/bin/
+
+CMD ["tier1"]

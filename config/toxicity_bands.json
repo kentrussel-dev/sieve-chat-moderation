@@ -1,0 +1,56 @@
+{
+  "bands": [
+    {
+      "level": 1,
+      "min_score": 0.0,
+      "max_score": 0.15,
+      "label": "Clean",
+      "description": "Normal, positive, or neutral chat (greetings, gg/glhf, casual talk)",
+      "default_action": "PASS"
+    },
+    {
+      "level": 2,
+      "min_score": 0.16,
+      "max_score": 0.35,
+      "label": "Gaming Slang (False Alarm)",
+      "description": "Contains trigger words ('kill', 'destroy', 'murdered that play') but non-hostile in context",
+      "default_action": "PASS_REVIEW_QUEUE"
+    },
+    {
+      "level": 3,
+      "min_score": 0.36,
+      "max_score": 0.55,
+      "label": "Ambiguous / Sarcastic",
+      "description": "Tone unclear without context; dry sarcasm, backhanded comments",
+      "default_action": "ESCALATE_LLM"
+    },
+    {
+      "level": 4,
+      "min_score": 0.56,
+      "max_score": 0.7,
+      "label": "Subtle Hostility",
+      "description": "Passive-aggressive, mocking, condescension without explicit insults",
+      "default_action": "ESCALATE_LLM"
+    },
+    {
+      "level": 5,
+      "min_score": 0.71,
+      "max_score": 0.88,
+      "label": "Toxic",
+      "description": "Direct insults, flaming, targeted harassment",
+      "default_action": "FLAG"
+    },
+    {
+      "level": 6,
+      "min_score": 0.89,
+      "max_score": 1.0,
+      "label": "Severe/Extreme",
+      "description": "Slurs, threats, hate speech, extremist content, doxxing",
+      "default_action": "FLAG_TIER_0"
+    }
+  ],
+  "routing_margins": {
+    "level_2_review_margin": 0.03,
+    "level_5_override_margin": 0.03
+  }
+}
