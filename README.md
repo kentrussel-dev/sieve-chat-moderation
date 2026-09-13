@@ -49,9 +49,9 @@ Traditional single-tier approaches fail to satisfy all three dimensions:
 Sieve is implemented as an event-driven streaming pipeline orchestrated across Apache Kafka (KRaft mode), Go microservices, a Python FastAPI inference engine, and a React real-time stream studio.
 
 <p align="center">
-  <img width="1000" alt="Figure 1: End-to-End System Architecture & Streaming Lifecycle" src="https://github.com/user-attachments/assets/857a719d-169a-47ff-8ae1-545281e214fd" />
+  <img width="1000" alt="Figure 1: End-to-End System Architecture & Streaming Lifecycle" src="docs/images/sieve_excalidraw_final.png" />
   <br>
-  <em>Figure 1: Sieve End-to-End Event-Driven Stream Architecture & Data Flow</em>
+  <em>Figure 1: Sieve End-to-End Event-Driven Stream Architecture, Capacity Math & Backpressure Buffer</em>
 </p>
 
 ### 2.1 Message Lifecycle & Stage Progression
